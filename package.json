@@ -1,0 +1,21 @@
+{
+    "name": "diff-objects",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "diff": "node src/diff",
+        "test": "mocha"
+    },
+    "author": "Namila Bandara <namila007@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "csv-writer": "^1.6.0",
+        "deep-diff": "^1.0.2",
+        "sort-keys": "^4.1.0"
+    },
+    "devDependencies": {
+        "mocha": "^8.2.1"
+    }
+}

@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+all-diff.csv
+changeddiff.csv
+prod.json
+qa.json
+package-lock.json

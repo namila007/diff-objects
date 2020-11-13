@@ -1,0 +1,1 @@
+console.log("run: npm run diff -- <file1> <file2>")
