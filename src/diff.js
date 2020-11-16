@@ -1,14 +1,15 @@
 const jsonDiffPatch = require('deep-diff')
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+const { exit } = require('process');
 const sortKeys = require('sort-keys');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const myArgs = process.argv.slice(2);
 if (myArgs < 2) {
     console.error("files are missing")
-    console.log("run: npm run start -- <file1.ext> <file2.ext>")
-    console.info("")
+    console.log("usage: npm run diff -- <file1.ext> <file2.ext>")
+    exit(1)
 }
 const qa = JSON.parse(fs.readFileSync(path.resolve(__dirname, "..", path.basename(myArgs[0])), 'utf8'))
 const prod = JSON.parse(fs.readFileSync(path.resolve(__dirname, "..", path.basename(myArgs[1])), 'utf8'))
@@ -33,9 +34,12 @@ let csvWriter = createCsvWriter({
 csvWriter.writeRecords(diff)
 
 //changed links 
+//changed links 
+//changed links 
 csvWriter = createCsvWriter({
     path: path.resolve(__dirname, "..", "changeddiff.csv"),
     header: [
+        { id: 'path', title: 'Object Path' },
         { id: 'lhs', title: 'Left' },
         { id: 'rhs', title: 'Right' }
     ]
@@ -48,7 +52,7 @@ async function diffLinks(diff) {
     let map1 = new Map();
     let linkChanges = [];
     for (i = 0; i < diff.length; i++) {
-
+        let path = diff[i].path
         let left = new String(diff[i].lhs).replace('\\"').split("/")
         let right = new String(diff[i].rhs).replace('\\"').split("/")
         for (j = 0; j < 3 && j < left.length; j++) {
@@ -60,6 +64,7 @@ async function diffLinks(diff) {
                 if (!map1.has(lhs)) {
                     obj.lhs = lhs
                     obj.rhs = rhs
+                    obj.path = path
                     linkChanges.push(obj)
                     map1.set(lhs, { value: true })
                 }
