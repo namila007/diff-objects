@@ -45,7 +45,10 @@ csvWriter = createCsvWriter({
     ]
 });
 
-diffLinks(diff).then((linkChanges) => { csvWriter.writeRecords(linkChanges) })
+diffLinks(diff).then((linkChanges) => {
+    console.table(linkChanges)
+    csvWriter.writeRecords(linkChanges)
+})
 
 
 async function diffLinks(diff) {
